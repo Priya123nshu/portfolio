@@ -228,7 +228,7 @@ export function Hero() {
         {/* Subtitle */}
         <div className="mb-6 text-2xl font-light text-muted-foreground md:text-3xl">
           <AnimatedText text="AI Engineer &" delay={0.4} />
-          <AnimatedText text="Data Scientist" delay={0.8} />
+          <AnimatedText text="Full-Stack Engineer" delay={0.8} />
         </div>
 
 

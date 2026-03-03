@@ -19,7 +19,7 @@ import {
 
 const socialLinks = [
   { name: "GitHub", icon: Github, href: "https://github.com/Priya123nshu", handle: "Priya123nshu" },
-  { name: "LinkedIn", icon: Linkedin, href: "https://linkedin.com/in/priyanshu-kumar", handle: "/in/priyanshu-kumar" },
+  { name: "LinkedIn", icon: Linkedin, href: "https://www.linkedin.com/in/priyanshu-kumar-980b50179", handle: "/in/priyanshu-kumar" },
   { name: "Email", icon: Mail, href: "mailto:priyanshu.altruist@gmail.com", handle: "priyanshu.altruist@gmail.com" },
 ]
 

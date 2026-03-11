@@ -10,6 +10,26 @@ export type BlogPost = {
 
 export const BLOG_POSTS: BlogPost[] = [
   {
+    slug: "building-llm-from-scratch-gpt-style-decoder",
+    title: "Building an LLM from Scratch: From Embeddings to a GPT-Style Decoder",
+    category: "LLM ARCHITECTURE",
+    excerpt:
+      "How I built five progressive PyTorch notebooks that evolve from a tiny embedding-plus-linear language model into a full decoder-only transformer with causal attention.",
+    publishDate: "Mar 12, 2026",
+    readTime: "9 min read",
+    coverImage: "/images/llm-model5-architecture.png",
+  },
+  {
+    slug: "project-nexus-multi-agent-hiring",
+    title: "Project Nexus: Building a Multi-Agent Intelligence Architecture",
+    category: "AGENTIC SYSTEMS",
+    excerpt:
+      "How I engineered a modular multi-agent architecture where specialized agents collaborate, reason, retrieve memory, and self-correct.",
+    publishDate: "Mar 11, 2026",
+    readTime: "12 min read",
+    coverImage: "/images/nexus-hero.png",
+  },
+  {
     slug: "job-share-hub-student-job-automation",
     title: "Reclaiming Time: Why (and How) I Built Job Share Hub for Students",
     category: "PLATFORM ENGINEERING",
@@ -28,16 +48,6 @@ export const BLOG_POSTS: BlogPost[] = [
     publishDate: "Mar 09, 2026",
     readTime: "8 min read",
     coverImage: "/images/url-shortener-dashboard.png",
-  },
-  {
-    slug: "project-nexus-multi-agent-hiring",
-    title: "Project Nexus: Building a Multi-Agent Intelligence Architecture",
-    category: "AGENTIC SYSTEMS",
-    excerpt:
-      "How I engineered a modular multi-agent architecture where specialized agents collaborate, reason, retrieve memory, and self-correct.",
-    publishDate: "Mar 11, 2026",
-    readTime: "12 min read",
-    coverImage: "/images/nexus-hero.png",
   },
   {
     slug: "rag-memory-systems-pinecone-chromadb",

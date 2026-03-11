@@ -100,6 +100,14 @@ const projects = [
     ],
   },
   {
+    title: "Building an LLM from Scratch - GPT Style Decoder Progression",
+    stack: "PyTorch, Transformers, Attention, Tokenization, Jupyter",
+    points: [
+      "Built five progressive language-model notebooks, starting from token embeddings plus GELU and ending with a full decoder-only transformer stack.",
+      "Implemented positional embeddings, layer normalization, tied input-output weights, causal attention, residual connections, and transformer blocks from first principles.",
+      "Structured the final model as a GPT-style 12-block decoder with multi-head self-attention and autoregressive next-token generation.",
+    ],
+  },  {
     title: "Job Share Hub - Automated Student Job Platform",
     stack: "Next.js, Python, Selenium, BeautifulSoup, Clerk, MCP",
     points: [
@@ -376,3 +384,4 @@ export default function PortfolioHero() {
     </div>
   );
 }
+

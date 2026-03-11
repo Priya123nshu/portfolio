@@ -118,6 +118,178 @@ function GenericPostLayout({ excerpt }: { excerpt: string }) {
   );
 }
 
+function BuildLLMFromScratchArticle() {
+  const modelStages = [
+    {
+      name: "Model 1 - Minimal Language Model",
+      image: "/images/llm-model1-architecture.jpg",
+      summary:
+        "The first notebook establishes the smallest useful next-token pipeline: token IDs -> embedding lookup -> GELU -> linear projection -> logits.",
+      bullets: [
+        "Built the training intuition around token embeddings and logits before introducing transformer complexity.",
+        "Used a raw PyTorch dataset and simple generation flow to make each tensor transformation inspectable.",
+      ],
+    },
+    {
+      name: "Model 2 - Position + Normalization + Weight Tying",
+      image: "/images/llm-model2-architecture.jpeg",
+      summary:
+        "The second notebook adds positional information, layer normalization, and a tied output head so the model starts to resemble a real decoder language model.",
+      bullets: [
+        "Combined token embeddings with positional embeddings to encode sequence order.",
+        "Introduced LayerNorm and tied the output projection back to the token embedding matrix.",
+      ],
+    },
+    {
+      name: "Model 3 - Attention Enters the System",
+      image: "/images/llm-model3-architecture.jpeg",
+      summary:
+        "The third step introduces attention, where query, key, and value projections let the model compute token relationships rather than treating each token independently.",
+      bullets: [
+        "Built scaled attention with causal masking so the model only attends to the past.",
+        "Moved from local token processing to contextual sequence reasoning.",
+      ],
+    },
+    {
+      name: "Model 4 - Reusable Transformer Block",
+      image: "/images/llm-model4-architecture.jpeg",
+      summary:
+        "The fourth notebook packages attention and MLP computation into a reusable transformer block with residual paths and normalization around both sublayers.",
+      bullets: [
+        "Added skip connections so deeper stacks remain trainable and stable.",
+        "Structured the model around the same building block repeated across decoder depth.",
+      ],
+    },
+    {
+      name: "Model 5 - GPT-Style Decoder Stack",
+      image: "/images/llm-model5-architecture.png",
+      summary:
+        "The final notebook assembles the full decoder pattern: token and position embeddings, 12 transformer blocks, final layer normalization, tied output projection, and autoregressive generation.",
+      bullets: [
+        "Implements multi-head causal self-attention, residual MLP layers, and next-token sampling with temperature.",
+        "Uses a GPT tokenizer vocabulary of 50,257 tokens with a compact, inspectable PyTorch implementation.",
+      ],
+    },
+  ];
+
+  const finalHighlights = [
+    { label: "Notebook Stages", value: "5" },
+    { label: "Decoder Blocks", value: "12" },
+    { label: "Attention Heads", value: "4" },
+    { label: "Tokenizer Vocab", value: "50,257" },
+  ];
+
+  return (
+    <div className="space-y-10">
+      <section className="rounded-2xl border border-white/15 bg-black/25 p-6 sm:p-8">
+        <h2 className="mb-4 text-2xl font-semibold tracking-tight text-[#C3E41D]">Why I Built This</h2>
+        <div className="space-y-5 text-neutral-300">
+          <p className="leading-8">
+            I did not want language models to remain a black box. Instead of jumping directly into a prebuilt framework,
+            I decomposed the architecture into five notebooks and rebuilt the decoder step by step, validating each new
+            idea before moving to the next one.
+          </p>
+          <p className="leading-8">
+            That progression matters. It turns transformer architecture from something you can import into something you
+            actually understand: how embeddings become context, how attention changes token interactions, and how a
+            reusable transformer block becomes a full autoregressive language model.
+          </p>
+        </div>
+      </section>
+
+      <section className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
+        {finalHighlights.map((item) => (
+          <div key={item.label} className="rounded-xl border border-white/15 bg-black/25 p-5">
+            <p className="text-xs uppercase tracking-wide text-neutral-400">{item.label}</p>
+            <p className="mt-2 text-xl font-semibold text-[#C3E41D]">{item.value}</p>
+          </div>
+        ))}
+      </section>
+
+      <section className="rounded-2xl border border-white/15 bg-black/25 p-6 sm:p-8">
+        <h2 className="mb-5 text-2xl font-semibold tracking-tight text-[#C3E41D]">The Model-by-Model Progression</h2>
+        <div className="space-y-6">
+          {modelStages.map((stage, index) => (
+            <article key={stage.name} className="overflow-hidden rounded-2xl border border-white/10 bg-black/30">
+              <div className="grid gap-0 lg:grid-cols-[1.1fr_0.9fr]">
+                <div className="p-6 sm:p-8">
+                  <div className="mb-3 inline-flex rounded-full border border-[#C3E41D]/30 bg-[#C3E41D]/10 px-3 py-1 text-xs font-medium text-[#C3E41D]">
+                    Stage {index + 1}
+                  </div>
+                  <h3 className="mb-3 text-xl font-semibold text-neutral-100 sm:text-2xl">{stage.name}</h3>
+                  <p className="mb-5 leading-8 text-neutral-300">{stage.summary}</p>
+                  <ul className="space-y-3 text-neutral-300">
+                    {stage.bullets.map((bullet) => (
+                      <li key={bullet}>- {bullet}</li>
+                    ))}
+                  </ul>
+                </div>
+                <figure className="border-t border-white/10 bg-white/5 lg:border-l lg:border-t-0">
+                  <Image
+                    src={stage.image}
+                    alt={stage.name}
+                    width={1200}
+                    height={1200}
+                    className="h-full w-full object-cover"
+                  />
+                </figure>
+              </div>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <section className="rounded-2xl border border-white/15 bg-black/25 p-6 sm:p-8">
+        <h2 className="mb-4 text-2xl font-semibold tracking-tight text-[#C3E41D]">What the Final Notebook Implements</h2>
+        <div className="space-y-5 text-neutral-300">
+          <p className="leading-8">
+            In the final notebook, the architecture mirrors the shape of a GPT-style decoder: token embeddings, positional
+            embeddings, a stack of transformer blocks, final normalization, a tied output projection, and autoregressive
+            generation over the next token.
+          </p>
+          <pre className="overflow-x-auto rounded-lg border border-white/10 bg-black/40 p-4 text-xs text-neutral-200 sm:text-sm">{`Input tokens
+  -> token embedding + positional embedding
+  -> 12x [LayerNorm -> masked multi-head attention -> residual]
+  -> 12x [LayerNorm -> MLP (GELU) -> residual]
+  -> final LayerNorm
+  -> tied linear projection to vocabulary logits
+  -> temperature-based next-token sampling`}</pre>
+          <p className="leading-8">
+            The notebook code also shows the implementation details directly: `MultiHeadAttention`, `TransformerBlock`,
+            `LanguageModel`, tied embedding weights, and a `generate()` loop that rolls the context window forward token
+            by token.
+          </p>
+        </div>
+      </section>
+
+      <section className="rounded-2xl border border-white/15 bg-black/25 p-6 sm:p-8">
+        <h2 className="mb-4 text-2xl font-semibold tracking-tight text-[#C3E41D]">Why This Project Matters</h2>
+        <div className="space-y-5 text-neutral-300">
+          <p className="leading-8">
+            This project is valuable because it demonstrates architectural understanding, not just framework usage. By
+            building the decoder in stages, I made each design decision explicit: why positional embeddings matter, why
+            causal masking is necessary, why residual connections stabilize depth, and why tied weights are elegant and efficient.
+          </p>
+          <p className="leading-8">
+            It also gave me a much stronger mental model for the systems I build now across agentic AI, RAG, and
+            production LLM infrastructure. Once you understand the internals, the higher-level systems become far more
+            deliberate to design.
+          </p>
+        </div>
+      </section>
+
+      <section className="rounded-2xl border border-white/15 bg-black/25 p-6 sm:p-8">
+        <h2 className="mb-4 text-2xl font-semibold tracking-tight text-[#C3E41D]">What I Learned</h2>
+        <ul className="space-y-3 text-neutral-300">
+          <li>- Building from scratch forces clarity around every tensor transformation inside a decoder.</li>
+          <li>- Attention only becomes intuitive when you implement query, key, and value flows yourself.</li>
+          <li>- Transformer depth is far easier to reason about once you first isolate a single reusable block.</li>
+          <li>- Weight tying, normalization, and residual pathways feel small on paper but become central in practice.</li>
+        </ul>
+      </section>
+    </div>
+  );
+}
 function ProjectNexusArticle() {
   const architectureLayers = [
     {
@@ -627,7 +799,9 @@ export default async function BlogPostPage({ params }: PageProps) {
           </div>
         </header>
 
-        {slug === "project-nexus-multi-agent-hiring" ? (
+        {slug === "building-llm-from-scratch-gpt-style-decoder" ? (
+          <BuildLLMFromScratchArticle />
+        ) : slug === "project-nexus-multi-agent-hiring" ? (
           <ProjectNexusArticle />
         ) : slug === "production-grade-url-shortener" ? (
           <UrlShortenerArticle />
@@ -651,3 +825,4 @@ export default async function BlogPostPage({ params }: PageProps) {
     </main>
   );
 }
+
